@@ -13,6 +13,20 @@ jobs:
         with:
           ref: develop
 
+      - name: Set up Git
+        id: setup_git
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const user = await github.rest.users.getByUsername({ username: context.actor });
+            const email = `${context.actor}@users.noreply.github.com`;
+            return { userName: user.data.name || context.actor, userEmail: email };
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "${{ steps.setup_git.outputs.userName }}"
+          git config --global user.email "${{ steps.setup_git.outputs.userEmail }}"
+  
       - name: Checkout master branch
         uses: actions/checkout@v4
         with:
