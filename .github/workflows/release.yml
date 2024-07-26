@@ -58,3 +58,4 @@ jobs:
             Release ${{ steps.create_tag.outputs.tag }} is created automatically.
           draft: false
           prerelease: false
+          token: ${{ secrets.GITHUB_TOKEN }}
