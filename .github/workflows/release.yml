@@ -56,7 +56,9 @@ jobs:
         with:
           tag_name: ${{ steps.create_tag.outputs.tag }}
           release_name: Release ${{ steps.create_tag.outputs.tag }}
-          body: |
-            Release ${{ steps.create_tag.outputs.tag }} is created automatically.
+          commit: true
+          generateReleaseNotes: true
+          makeLatest: true
           draft: false
           prerelease: false
+          removeArtifacts: true
