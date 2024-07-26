@@ -3,6 +3,9 @@ name: Release to Master
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write  # GITHUB_TOKEN에 읽기/쓰기 권한 부여
+
 jobs:
   release-to-master:
     runs-on: ubuntu-latest
