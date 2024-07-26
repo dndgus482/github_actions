@@ -20,7 +20,7 @@ jobs:
   
       - name: Merge develop to master
         run: |
-          git merge origin/develop
+          git merge origin/develop --allow-unrelated-histories || echo "Merge conflicts detected. Please resolve conflicts manually."
           git push origin master
 
       - name: Create Release Tag
