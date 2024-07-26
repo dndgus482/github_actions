@@ -41,7 +41,8 @@ jobs:
           BASE_TAG=$(date +'%y%m%d')
           TAG=$BASE_TAG
           COUNTER=1
-          while git rev-parse "refs/tags/${BASE_TAG}-${COUNTER}" >/dev/null 2>&1; do
+          TAG="${BASE_TAG}-${COUNTER}"
+          while git rev-parse "refs/tags/$TAG" > /dev/null 2>&1; do
             TAG="${BASE_TAG}-${COUNTER}"
             COUNTER=$((COUNTER+1))
           done
