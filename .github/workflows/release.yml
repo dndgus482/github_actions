@@ -11,7 +11,7 @@ jobs:
       - name: Checkout master branch
         uses: actions/checkout@v4
         with:
-          ref: develop
+          ref: master
 
       - name: Set up Git
         id: setup_git
@@ -26,12 +26,7 @@ jobs:
         run: |
           git config --global user.name "${{ steps.setup_git.outputs.userName }}"
           git config --global user.email "${{ steps.setup_git.outputs.userEmail }}"
-  
-      - name: Checkout master branch
-        uses: actions/checkout@v4
-        with:
-          ref: master
-  
+
       - name: Merge develop to master
         run: |
           git merge origin/develop --allow-unrelated-histories || echo "Merge conflicts detected. Please resolve conflicts manually."
