@@ -13,9 +13,13 @@ jobs:
         with:
           ref: develop
 
+      - name: Checkout master branch
+        uses: actions/checkout@v4
+        with:
+          ref: master
+  
       - name: Merge develop to master
         run: |
-          git checkout master
           git merge develop
           git push origin master
 
