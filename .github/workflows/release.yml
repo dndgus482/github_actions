@@ -1,0 +1,43 @@
+name: Release to Master
+
+on:
+  workflow_dispatch:
+
+jobs:
+  release-to-master:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout master branch
+        uses: actions/checkout@v4
+        with:
+          ref: master
+
+      - name: Merge develop to master
+        run: |
+          git merge develop
+          git push origin master
+
+      - name: Create Release Tag
+        id: create_tag
+        run: |
+          BASE_TAG=$(date +'%y%m%d')
+          TAG=$BASE_TAG
+          COUNTER=1
+          while git rev-parse "refs/tags/$TAG" >/dev/null 2>&1; do
+            TAG="${BASE_TAG}-${COUNTER}"
+            COUNTER=$((COUNTER+1))
+          done
+          git tag $TAG
+          git push origin $TAG
+          echo "::set-output name=tag::$TAG"
+  
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        with:
+          tag_name: ${{ steps.create_tag.outputs.tag }}
+          release_name: Release ${{ steps.create_tag.outputs.tag }}
+          body: |
+            Release ${{ steps.create_tag.outputs.tag }} is created automatically.
+          draft: false
+          prerelease: false
