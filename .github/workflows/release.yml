@@ -43,8 +43,8 @@ jobs:
           COUNTER=1
           TAG="${BASE_TAG}-${COUNTER}"
           while git rev-parse "refs/tags/$TAG" > /dev/null 2>&1; do
-            TAG="${BASE_TAG}-${COUNTER}"
             COUNTER=$((COUNTER+1))
+            TAG="${BASE_TAG}-${COUNTER}"
           done
           git tag $TAG
           git push origin $TAG
