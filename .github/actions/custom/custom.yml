@@ -1,0 +1,10 @@
+name: 'My Custom Action'
+description: 'An example custom action for my existing repository'
+inputs:
+  example_input:
+    description: 'An example input for the action'
+    required: true
+    default: 'default_value'
+runs:
+  using: 'node12'
+  main: 'index.js'
