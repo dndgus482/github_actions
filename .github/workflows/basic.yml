@@ -36,3 +36,8 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+
+      - name: Step that should be skipped
+        if: false
+        run: echo "You should not see this message."
+
